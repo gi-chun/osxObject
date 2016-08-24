@@ -24,6 +24,7 @@ using namespace cv;
 @property (weak) IBOutlet NSWindow *window;
 
 @property (nonatomic,strong) IBOutlet TopViewCtl *topViewCtl;
+@property (nonatomic,strong) IBOutlet MainViewCtl *mainViewCtl;
 
 @end
 
@@ -44,16 +45,13 @@ using namespace cv;
 //    mainViewCnr.view.frame = ((NSView*)self.window.contentView).bounds;
     
     
-    // 1. Create the master View Controller
     self.topViewCtl = [[TopViewCtl alloc] initWithNibName:@"TopViewCtl" bundle:nil];
-    
-    // 2. Add the view controller to the Window's content view
     [self.window.contentView addSubview:self.topViewCtl.view];
     self.topViewCtl.view.frame = ((NSView*)self.window.contentView).bounds;
     
-    
-    
-
+//    self.mainViewCtl = [[MainViewCtl alloc] initWithNibName:@"MainViewCtl" bundle:nil];
+//    [self.window.contentView addSubview:self.mainViewCtl.view];
+//    self.mainViewCtl.view.frame = ((NSView*)self.window.contentView).bounds;
     
     
     // Insert code here to initialize your application

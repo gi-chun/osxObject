@@ -59,7 +59,7 @@
 		280892861D65882B00BD9E56 /* VideoSilicing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 280892851D65882B00BD9E56 /* VideoSilicing.cpp */; };
 		2808928B1D6589F100BD9E56 /* ObjVideoSilicing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2808928A1D6589F100BD9E56 /* ObjVideoSilicing.mm */; };
 		280892AB1D65943B00BD9E56 /* LeftMenuViewCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 280892AA1D65943B00BD9E56 /* LeftMenuViewCtl.m */; };
-		280892AE1D65A48C00BD9E56 /* MainViewCtl.m in Sources */ = {isa = PBXBuildFile; fileRef = 280892AD1D65A48C00BD9E56 /* MainViewCtl.m */; };
+		280892AE1D65A48C00BD9E56 /* MainViewCtl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 280892AD1D65A48C00BD9E56 /* MainViewCtl.mm */; };
 		280892B01D65A68C00BD9E56 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280892AF1D65A68C00BD9E56 /* CoreFoundation.framework */; };
 		280892B21D65A6AA00BD9E56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280892B11D65A6AA00BD9E56 /* Foundation.framework */; };
 		280892B41D65A6E900BD9E56 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280892B31D65A6E900BD9E56 /* Cocoa.framework */; };
@@ -74,6 +74,7 @@
 		281C08D41D66D4EC00055234 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281C08D31D66D4EC00055234 /* QuartzCore.framework */; };
 		281C08D61D66D50200055234 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281C08D51D66D50200055234 /* AVFoundation.framework */; };
 		281C08D81D66D51400055234 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 281C08D71D66D51400055234 /* CoreData.framework */; };
+		281C093C1D66F3F100055234 /* MainViewCtl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 281C093B1D66F3F100055234 /* MainViewCtl.xib */; };
 		28D73A191D6414E40087E12A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D73A181D6414E40087E12A /* AppDelegate.m */; };
 		28D73A1C1D6414E40087E12A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D73A1B1D6414E40087E12A /* main.m */; };
 		28D73A1E1D6414E40087E12A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28D73A1D1D6414E40087E12A /* Assets.xcassets */; };
@@ -156,7 +157,7 @@
 		280892A91D65943B00BD9E56 /* LeftMenuViewCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewCtl.h; sourceTree = "<group>"; };
 		280892AA1D65943B00BD9E56 /* LeftMenuViewCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewCtl.m; sourceTree = "<group>"; };
 		280892AC1D65A48C00BD9E56 /* MainViewCtl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewCtl.h; sourceTree = "<group>"; };
-		280892AD1D65A48C00BD9E56 /* MainViewCtl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewCtl.m; sourceTree = "<group>"; };
+		280892AD1D65A48C00BD9E56 /* MainViewCtl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewCtl.mm; sourceTree = "<group>"; };
 		280892AF1D65A68C00BD9E56 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		280892B11D65A6AA00BD9E56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		280892B31D65A6E900BD9E56 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -172,6 +173,7 @@
 		281C08D31D66D4EC00055234 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		281C08D51D66D50200055234 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		281C08D71D66D51400055234 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		281C093B1D66F3F100055234 /* MainViewCtl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewCtl.xib; sourceTree = "<group>"; };
 		28D73A141D6414E40087E12A /* objectTrackSJP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = objectTrackSJP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28D73A171D6414E40087E12A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		28D73A181D6414E40087E12A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -408,9 +410,10 @@
 				280892A91D65943B00BD9E56 /* LeftMenuViewCtl.h */,
 				280892AA1D65943B00BD9E56 /* LeftMenuViewCtl.m */,
 				280892AC1D65A48C00BD9E56 /* MainViewCtl.h */,
-				280892AD1D65A48C00BD9E56 /* MainViewCtl.m */,
+				280892AD1D65A48C00BD9E56 /* MainViewCtl.mm */,
 				280892B71D65AB1D00BD9E56 /* TopViewCtl.h */,
 				280892B81D65AB1D00BD9E56 /* TopViewCtl.m */,
+				281C093B1D66F3F100055234 /* MainViewCtl.xib */,
 				280892B91D65AB1D00BD9E56 /* TopViewCtl.xib */,
 				28D73A171D6414E40087E12A /* AppDelegate.h */,
 				28D73A181D6414E40087E12A /* AppDelegate.m */,
@@ -554,6 +557,7 @@
 				280892BB1D65AB1D00BD9E56 /* TopViewCtl.xib in Resources */,
 				280892C11D65ACCD00BD9E56 /* location_icon@1x.png in Resources */,
 				28D73A1E1D6414E40087E12A /* Assets.xcassets in Resources */,
+				281C093C1D66F3F100055234 /* MainViewCtl.xib in Resources */,
 				280892C21D65ACCD00BD9E56 /* location_icon@2x.png in Resources */,
 				28D73A211D6414E40087E12A /* MainMenu.xib in Resources */,
 				281C08CF1D66D27100055234 /* plus.png in Resources */,
@@ -585,7 +589,7 @@
 				28D73A1C1D6414E40087E12A /* main.m in Sources */,
 				280892861D65882B00BD9E56 /* VideoSilicing.cpp in Sources */,
 				280892AB1D65943B00BD9E56 /* LeftMenuViewCtl.m in Sources */,
-				280892AE1D65A48C00BD9E56 /* MainViewCtl.m in Sources */,
+				280892AE1D65A48C00BD9E56 /* MainViewCtl.mm in Sources */,
 				28D73A191D6414E40087E12A /* AppDelegate.m in Sources */,
 				280892BA1D65AB1D00BD9E56 /* TopViewCtl.m in Sources */,
 				2808928B1D6589F100BD9E56 /* ObjVideoSilicing.mm in Sources */,

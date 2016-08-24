@@ -1,88 +1,83 @@
-
-//#include <OpenCV/OpenCV.h>
-#include <opencv2/opencv.hpp>
-
-#include <cassert>
 #include <iostream>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
-
-const char  * WINDOW_NAME  = "Face Tracker";
-const CFIndex CASCADE_NAME_LEN = 2048;
-      char    CASCADE_NAME[CASCADE_NAME_LEN] = "~/opencv/data/haarcascades/haarcascade_frontalface_alt2.xml";
-
+using namespace cv;
 using namespace std;
 
-int main (int argc, char * const argv[])
+int main( int argc, char** argv )
 {
-    const int scale = 2;
-
-    // locate haar cascade from inside application bundle
-    // (this is the mac way to package application resources)
-    CFBundleRef mainBundle  = CFBundleGetMainBundle ();
-    assert (mainBundle);
-    CFURLRef    cascade_url = CFBundleCopyResourceURL (mainBundle, CFSTR("haarcascade_frontalface_alt2"), CFSTR("xml"), NULL);
-    assert (cascade_url);
-    Boolean     got_it      = CFURLGetFileSystemRepresentation (cascade_url, true,
-                                                                reinterpret_cast<UInt8 *>(CASCADE_NAME), CASCADE_NAME_LEN);
-    if (! got_it)
-        abort ();
-
-    // create all necessary instances
-    cvNamedWindow (WINDOW_NAME, CV_WINDOW_AUTOSIZE);
-    CvCapture * camera = cvCreateCameraCapture (CV_CAP_ANY);
-    CvHaarClassifierCascade* cascade = (CvHaarClassifierCascade*) cvLoad (CASCADE_NAME, 0, 0, 0);
-    CvMemStorage* storage = cvCreateMemStorage(0);
-    assert (storage);
-
-    // you do own an iSight, don't you ?!?
-    if (! camera)
-        abort ();
-
-    // did we load the cascade?!?
-    if (! cascade)
-        abort ();
-
-    // get an initial frame and duplicate it for later work
-    IplImage *  current_frame = cvQueryFrame (camera);
-    IplImage *  draw_image    = cvCreateImage(cvSize (current_frame->width, current_frame->height), IPL_DEPTH_8U, 3);
-    IplImage *  gray_image    = cvCreateImage(cvSize (current_frame->width, current_frame->height), IPL_DEPTH_8U, 1);
-    IplImage *  small_image   = cvCreateImage(cvSize (current_frame->width / scale, current_frame->height / scale), IPL_DEPTH_8U, 1);
-    assert (current_frame && gray_image && draw_image);
-
-    // as long as there are images ...
-    while (current_frame = cvQueryFrame (camera))
+    VideoCapture cap(0); //capture the video from web cam
+    
+    if ( !cap.isOpened() )  // if not success, exit program
     {
-        // convert to gray and downsize
-        cvCvtColor (current_frame, gray_image, CV_BGR2GRAY);
-        cvResize (gray_image, small_image, CV_INTER_LINEAR);
-
-        // detect faces
-        CvSeq* faces = cvHaarDetectObjects (small_image, cascade, storage,
-                                            1.1, 2, CV_HAAR_DO_CANNY_PRUNING,
-                                            cvSize (30, 30));
-
-        // draw faces
-        cvFlip (current_frame, draw_image, 1);
-        for (int i = 0; i < (faces ? faces->total : 0); i++)
-        {
-            CvRect* r = (CvRect*) cvGetSeqElem (faces, i);
-            CvPoint center;
-            int radius;
-            center.x = cvRound((small_image->width - r->width*0.5 - r->x) *scale);
-            center.y = cvRound((r->y + r->height*0.5)*scale);
-            radius = cvRound((r->width + r->height)*0.25*scale);
-            cvCircle (draw_image, center, radius, CV_RGB(0,255,0), 3, 8, 0 );
-        }
-
-        // just show the image
-        cvShowImage (WINDOW_NAME, draw_image);
-
-        // wait a tenth of a second for keypress and window drawing
-        int key = cvWaitKey (100);
-        if (key == 'q' || key == 'Q')
-            break;
+        cout << "Cannot open the web cam" << endl;
+        return -1;
     }
-
-    // be nice and return no error
+    
+    namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
+    
+    int iLowH = 20;
+    int iHighH = 179;
+    
+    int iLowS = 0;
+    int iHighS = 255;
+    
+    int iLowV = 0;
+    int iHighV = 255;
+    
+    //Create trackbars in "Control" window
+    cvCreateTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
+    cvCreateTrackbar("HighH", "Control", &iHighH, 179);
+    
+    cvCreateTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
+    cvCreateTrackbar("HighS", "Control", &iHighS, 255);
+    
+    cvCreateTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
+    cvCreateTrackbar("HighV", "Control", &iHighV, 255);
+    
+    while (true)
+    {
+        Mat imgOriginal;
+        
+        bool bSuccess = cap.read(imgOriginal); // read a new frame from video
+        
+        if (!bSuccess) //if not success, break loop
+        {
+            cout << "Cannot read a frame from video stream" << endl;
+            break;
+        }
+        
+        Mat imgHSV;
+        
+        cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+        
+        Mat imgThresholded;
+        
+        inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+        
+        //morphological opening (remove small objects from the foreground)
+        erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, cv::Size(5, 5)) );
+        dilate( imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, cv::Size(5, 5)) );
+        
+        //morphological closing (fill small holes in the foreground)
+        dilate( imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, cv::Size(5, 5)) );
+        erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, cv::Size(5, 5)) );
+        
+        imshow("Thresholded Image", imgThresholded); //show the thresholded image
+        imshow("Original", imgOriginal); //show the original image
+        
+        if ( cvWaitKey(1) == 'q'){
+            break;
+        }
+        
+//        if (cvWaitKey(1) == 'q') //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+//        {
+//            cout << "esc key is pressed by user" << endl;
+//            break; 
+//        }
+    }
+    
     return 0;
+    
 }
