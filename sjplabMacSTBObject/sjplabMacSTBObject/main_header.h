@@ -34,11 +34,19 @@ static NSString * const ctrackingALG_keyPoints       = @"ctrackingALG_keyPoints"
 static NSString * const ctrackingALG_learning       = @"ctrackingALG_learning";
 
 static NSString * const inputMethod       = @"inputMethod";
+static NSString * const processMethod       = @"processMethod";
+
 
 typedef NS_ENUM(NSInteger, inputMethodFlag) {
     methodCam = 0,
     methodStream,
-    methodFile
+    methodCam2
+};
+
+typedef NS_ENUM(NSInteger, processMethodFlag) {
+    methodCMT = 0,
+    methodTLD,
+    methodOther
 };
 
 

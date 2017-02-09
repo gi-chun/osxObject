@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -672,25 +673,22 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" canDrawConcurrently="YES" misplaced="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1280" height="880"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="750"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView autoresizesSubviews="NO" canDrawConcurrently="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Xl-7y-hpW">
-                                <rect key="frame" x="0.0" y="276" width="1280" height="720"/>
-                            </customView>
                             <box misplaced="YES" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="mWw-du-V7K">
-                                <rect key="frame" x="17" y="16" width="1246" height="140"/>
+                                <rect key="frame" x="8" y="44" width="1255" height="140"/>
                                 <view key="contentView" id="PcP-gb-03V">
-                                    <rect key="frame" x="1" y="1" width="1244" height="124"/>
+                                    <rect key="frame" x="1" y="1" width="1253" height="124"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPA-Fi-t1t">
+                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="UPA-Fi-t1t">
                                             <rect key="frame" x="548" y="39" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="48" id="E87-GV-bKu"/>
                                                 <constraint firstAttribute="width" constant="48" id="RDG-YK-n9S"/>
                                             </constraints>
-                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="plus" imagePosition="only" alignment="center" alternateImage="cross" imageScaling="proportionallyUpOrDown" inset="2" id="Liv-K7-6cb">
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="object_normal" imagePosition="only" alignment="center" alternateImage="object_selected" imageScaling="proportionallyUpOrDown" inset="2" id="Liv-K7-6cb">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -698,7 +696,7 @@
                                                 <action selector="objecttrackingClick:" target="XfG-lQ-9wD" id="T3Q-wr-nmL"/>
                                             </connections>
                                         </button>
-                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QA5-pI-Nfr">
+                                        <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QA5-pI-Nfr">
                                             <rect key="frame" x="1076" y="39" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="S7v-II-3Cf"/>
@@ -711,38 +709,211 @@
                                                 <segue destination="cMR-Bt-ilc" kind="popover" popoverAnchorView="QA5-pI-Nfr" popoverBehavior="t" preferredEdge="maxY" id="znE-dc-niG"/>
                                             </connections>
                                         </button>
+                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="2UI-R5-06l">
+                                            <rect key="frame" x="71" y="38" width="48" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="48" id="2KB-pH-Xqr"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EXIT" imagePosition="only" alignment="center" alternateImage="EXIT" imageScaling="proportionallyUpOrDown" inset="2" id="Xxy-xX-VDE">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="exitClick:" target="XfG-lQ-9wD" id="MoI-YO-JKZ"/>
+                                                </connections>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="centerX" secondItem="PcP-gb-03V" secondAttribute="centerX" id="9dt-Az-II8"/>
-                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="top" secondItem="PcP-gb-03V" secondAttribute="top" constant="37" id="Te3-tf-B51"/>
-                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="centerY" secondItem="PcP-gb-03V" secondAttribute="centerY" id="WgF-tD-OtY"/>
-                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="top" secondItem="QA5-pI-Nfr" secondAttribute="top" id="cdl-ch-i68"/>
-                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="bottom" secondItem="QA5-pI-Nfr" secondAttribute="bottom" id="feT-zy-fnN"/>
-                                        <constraint firstAttribute="trailing" secondItem="QA5-pI-Nfr" secondAttribute="trailing" constant="20" id="ijW-9z-MJa"/>
+                                        <constraint firstItem="UPA-Fi-t1t" firstAttribute="leading" secondItem="PcP-gb-03V" secondAttribute="leading" constant="548" id="2O4-St-ijR"/>
+                                        <constraint firstItem="2UI-R5-06l" firstAttribute="centerY" secondItem="PcP-gb-03V" secondAttribute="centerY" id="Emi-tn-Sem"/>
+                                        <constraint firstItem="2UI-R5-06l" firstAttribute="top" secondItem="PcP-gb-03V" secondAttribute="top" constant="38" id="LHa-i8-d7p"/>
+                                        <constraint firstItem="QA5-pI-Nfr" firstAttribute="top" secondItem="PcP-gb-03V" secondAttribute="top" constant="37" id="gcq-5w-XqG"/>
+                                        <constraint firstAttribute="trailing" secondItem="QA5-pI-Nfr" secondAttribute="trailing" constant="129" id="haW-pa-ThZ"/>
+                                        <constraint firstItem="QA5-pI-Nfr" firstAttribute="bottom" secondItem="UPA-Fi-t1t" secondAttribute="bottom" id="iKk-9Q-5OZ"/>
+                                        <constraint firstItem="QA5-pI-Nfr" firstAttribute="top" secondItem="UPA-Fi-t1t" secondAttribute="top" id="nwn-cS-lWX"/>
+                                        <constraint firstItem="2UI-R5-06l" firstAttribute="leading" secondItem="PcP-gb-03V" secondAttribute="leading" constant="71" id="ouU-he-sn6"/>
                                     </constraints>
                                 </view>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
+                            <box misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odf-ym-Mw1">
+                                <rect key="frame" x="1005" y="175" width="258" height="569"/>
+                                <view key="contentView" id="bV6-3r-cqo">
+                                    <rect key="frame" x="2" y="2" width="254" height="552"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box fixedFrame="YES" title="Video Source" translatesAutoresizingMaskIntoConstraints="NO" id="iIL-sA-H3U">
+                                            <rect key="frame" x="17" y="387" width="220" height="145"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <view key="contentView" id="9uS-zM-c24">
+                                                <rect key="frame" x="2" y="2" width="216" height="125"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4A-d7-S9F">
+                                                        <rect key="frame" x="5" y="84" width="210" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" title="Cam 1" bezelStyle="regularSquare" image="osx_check_button_normal" imagePosition="right" alignment="left" alternateImage="osx_check_button_selected" imageScaling="proportionallyUpOrDown" inset="2" id="W9E-f1-Sp4">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system" size="10"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectVideoSource:" target="XfG-lQ-9wD" id="PPV-17-Rhj"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="vjt-ex-uWf">
+                                                        <rect key="frame" x="5" y="52" width="210" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" title="Cam 2" bezelStyle="regularSquare" image="osx_check_button_normal" imagePosition="right" alignment="left" alternateImage="osx_check_button_selected" imageScaling="proportionallyUpOrDown" inset="2" id="di6-T6-1dj">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system" size="10"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectVideoSource:" target="XfG-lQ-9wD" id="bdb-fE-b9u"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="4wl-gA-RKa">
+                                                        <rect key="frame" x="5" y="20" width="210" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" title="Stream data" bezelStyle="regularSquare" image="osx_check_button_normal" imagePosition="right" alignment="left" alternateImage="osx_check_button_selected" imageScaling="proportionallyUpOrDown" inset="2" id="4I2-yf-NRh">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system" size="10"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectVideoSource:" target="XfG-lQ-9wD" id="sLv-22-u1X"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </view>
+                                            <font key="titleFont" metaFont="titleBar"/>
+                                        </box>
+                                        <box fixedFrame="YES" title="Method" translatesAutoresizingMaskIntoConstraints="NO" id="SxG-J6-96a">
+                                            <rect key="frame" x="17" y="239" width="220" height="120"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <view key="contentView" id="gFA-AN-WZP">
+                                                <rect key="frame" x="2" y="2" width="216" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h05-Po-fdo">
+                                                        <rect key="frame" x="7" y="58" width="209" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" title="CMT" bezelStyle="regularSquare" image="osx_check_button_normal" imagePosition="right" alignment="left" alternateImage="osx_check_button_selected" imageScaling="proportionallyUpOrDown" inset="2" id="hJD-u3-BLw">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system" size="10"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectMethod:" target="XfG-lQ-9wD" id="SYC-z3-YLl"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="iRE-ae-VDR">
+                                                        <rect key="frame" x="7" y="21" width="209" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" title="TLD" bezelStyle="regularSquare" image="osx_check_button_normal" imagePosition="right" alignment="left" alternateImage="osx_check_button_selected" imageScaling="proportionallyUpOrDown" inset="2" id="gKc-RW-Ad8">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system" size="10"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectMethod:" target="XfG-lQ-9wD" id="Y3z-Kw-Q0q"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </view>
+                                            <font key="titleFont" metaFont="titleBar"/>
+                                        </box>
+                                        <box fixedFrame="YES" title="Move Camera" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-L5-FJr">
+                                            <rect key="frame" x="17" y="15" width="220" height="193"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <view key="contentView" id="vKb-Jx-Vy0">
+                                                <rect key="frame" x="2" y="2" width="216" height="173"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YF0-4l-p4z">
+                                                        <rect key="frame" x="84" y="116" width="48" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow_up" imagePosition="only" alignment="center" alternateImage="arrow_up" imageScaling="proportionallyUpOrDown" inset="2" id="UfS-kC-sDM">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LtI-6o-ejI">
+                                                        <rect key="frame" x="31" y="61" width="48" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow_left" imagePosition="only" alignment="center" alternateImage="arrow_left" imageScaling="proportionallyUpOrDown" inset="2" id="ZaA-f3-5KN">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RCj-FI-aar">
+                                                        <rect key="frame" x="137" y="61" width="48" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow_right" imagePosition="only" alignment="center" alternateImage="arrow_right" imageScaling="proportionallyUpOrDown" inset="2" id="vIr-KS-IFL">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GrW-sQ-W5l">
+                                                        <rect key="frame" x="84" y="5" width="48" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="arrow_down" imagePosition="only" alignment="center" alternateImage="arrow_down" imageScaling="proportionallyUpOrDown" inset="2" id="nEm-ca-qCS">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                </subviews>
+                                            </view>
+                                            <font key="titleFont" metaFont="titleBar"/>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </box>
+                            <customView autoresizesSubviews="NO" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAB-Vx-4vW" userLabel="VideoMain">
+                                <rect key="frame" x="11" y="192" width="980" height="551"/>
+                                <subviews>
+                                    <customView autoresizesSubviews="NO" canDrawConcurrently="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Xl-7y-hpW">
+                                        <rect key="frame" x="0.0" y="0.0" width="980" height="551"/>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3Xl-7y-hpW" firstAttribute="leading" secondItem="cAB-Vx-4vW" secondAttribute="leading" id="OGi-KB-eet"/>
+                                    <constraint firstItem="3Xl-7y-hpW" firstAttribute="top" secondItem="cAB-Vx-4vW" secondAttribute="top" id="Zpy-RU-n4z"/>
+                                    <constraint firstItem="3Xl-7y-hpW" firstAttribute="width" secondItem="cAB-Vx-4vW" secondAttribute="height" multiplier="463:269" id="lai-Xf-R3M"/>
+                                    <constraint firstItem="3Xl-7y-hpW" firstAttribute="centerY" secondItem="cAB-Vx-4vW" secondAttribute="centerY" id="nta-4Q-Of7"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Xl-7y-hpW" secondAttribute="trailing" constant="20" symbolic="YES" id="p0D-a7-mhe"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="mWw-du-V7K" secondAttribute="trailing" constant="20" id="1RZ-Ga-vRp"/>
-                            <constraint firstItem="3Xl-7y-hpW" firstAttribute="centerX" secondItem="mWw-du-V7K" secondAttribute="centerX" id="3KD-YW-TlX"/>
-                            <constraint firstItem="3Xl-7y-hpW" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="height" multiplier="236:153" id="8Xi-Uv-6vw"/>
-                            <constraint firstItem="mWw-du-V7K" firstAttribute="top" secondItem="3Xl-7y-hpW" secondAttribute="bottom" constant="8" symbolic="YES" id="KvI-Yo-p7E"/>
-                            <constraint firstAttribute="trailing" secondItem="3Xl-7y-hpW" secondAttribute="trailing" id="NOQ-iD-nD7"/>
-                            <constraint firstItem="3Xl-7y-hpW" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="R56-z1-SWS"/>
-                            <constraint firstItem="mWw-du-V7K" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="fSi-Vr-Tho"/>
-                            <constraint firstAttribute="bottom" secondItem="mWw-du-V7K" secondAttribute="bottom" constant="20" id="g0R-kV-qhH"/>
+                            <constraint firstItem="cAB-Vx-4vW" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="2bz-7M-uAk"/>
+                            <constraint firstItem="mWw-du-V7K" firstAttribute="top" secondItem="cAB-Vx-4vW" secondAttribute="bottom" constant="8" symbolic="YES" id="3cg-IX-aCI"/>
+                            <constraint firstItem="Odf-ym-Mw1" firstAttribute="leading" secondItem="cAB-Vx-4vW" secondAttribute="trailing" constant="20" id="3yf-3J-yj6"/>
+                            <constraint firstItem="mWw-du-V7K" firstAttribute="trailing" secondItem="Odf-ym-Mw1" secondAttribute="trailing" id="CRL-OA-hpA"/>
+                            <constraint firstItem="cAB-Vx-4vW" firstAttribute="baseline" secondItem="bV6-3r-cqo" secondAttribute="baseline" id="Kqx-yf-wZW"/>
+                            <constraint firstAttribute="bottom" secondItem="mWw-du-V7K" secondAttribute="bottom" constant="11" id="MeF-Ox-Jh9"/>
+                            <constraint firstItem="cAB-Vx-4vW" firstAttribute="centerY" secondItem="Odf-ym-Mw1" secondAttribute="centerY" id="bJ7-CO-tj5"/>
+                            <constraint firstItem="cAB-Vx-4vW" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="11" id="e5m-2U-cwP"/>
+                            <constraint firstAttribute="trailing" secondItem="cAB-Vx-4vW" secondAttribute="trailing" constant="292" id="hb4-wp-71e"/>
+                            <constraint firstAttribute="trailing" secondItem="Odf-ym-Mw1" secondAttribute="trailing" constant="20" id="kBM-AS-D5j"/>
+                            <constraint firstAttribute="bottom" secondItem="cAB-Vx-4vW" secondAttribute="bottom" constant="155" id="x5Z-Bt-opf"/>
+                            <constraint firstItem="mWw-du-V7K" firstAttribute="leading" secondItem="cAB-Vx-4vW" secondAttribute="leading" id="xhm-rp-gLC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomCtlView" destination="mWw-du-V7K" id="hYy-Iq-34z"/>
+                        <outlet property="cam1" destination="M4A-d7-S9F" id="920-p4-hhw"/>
+                        <outlet property="cam2" destination="vjt-ex-uWf" id="sQg-CL-Zom"/>
+                        <outlet property="cmtButton" destination="h05-Po-fdo" id="GRR-fX-xMZ"/>
+                        <outlet property="mainRootView" destination="m2S-Jp-Qdl" id="64L-Wx-txD"/>
+                        <outlet property="methodView" destination="SxG-J6-96a" id="Cvg-Iq-V1g"/>
+                        <outlet property="moveCamView" destination="VSI-L5-FJr" id="fUq-ba-Xqn"/>
+                        <outlet property="objButton" destination="UPA-Fi-t1t" id="FhW-W8-xr2"/>
+                        <outlet property="rightCtlView" destination="Odf-ym-Mw1" id="Pxs-ag-jRE"/>
+                        <outlet property="sourceView" destination="iIL-sA-H3U" id="9cD-59-oKU"/>
+                        <outlet property="streamData" destination="4wl-gA-RKa" id="Nxp-YM-9ex"/>
+                        <outlet property="tldButton" destination="iRE-ae-VDR" id="82f-k7-bKo"/>
                         <outlet property="videoView" destination="3Xl-7y-hpW" id="5dj-iC-vdZ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="425" y="902"/>
+            <point key="canvasLocation" x="425" y="837"/>
         </scene>
         <!--Config View Controller-->
         <scene sceneID="jpR-eg-cAv">
@@ -759,8 +930,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cross" width="88" height="88"/>
+        <image name="EXIT" width="88" height="88"/>
+        <image name="arrow_down" width="88" height="88"/>
+        <image name="arrow_left" width="88" height="88"/>
+        <image name="arrow_right" width="88" height="88"/>
+        <image name="arrow_up" width="88" height="88"/>
         <image name="linkedin-icon" width="88" height="88"/>
-        <image name="plus" width="88" height="88"/>
+        <image name="object_normal" width="88" height="88"/>
+        <image name="object_selected" width="88" height="88"/>
+        <image name="osx_check_button_normal" width="298" height="54"/>
+        <image name="osx_check_button_selected" width="298" height="54"/>
     </resources>
 </document>

@@ -46,20 +46,155 @@ using namespace cv;
     BOOL mousedrag;
     BOOL objecttracking;
     cv::Size displaySize;
+    IBOutlet NSView *mainRootView;
+    __weak IBOutlet NSBox *bottomCtlView;
+    __weak IBOutlet NSBox *rightCtlView;
+    __weak IBOutlet NSBox *sourceView;
+    __weak IBOutlet NSBox *methodView;
+    __weak IBOutlet NSBox *moveCamView;
+    
+    __weak IBOutlet NSButton *cam1;
+    __weak IBOutlet NSButton *cam2;
+    __weak IBOutlet NSButton *streamData;
+    
+    __weak IBOutlet NSButton *cmtButton;
+    __weak IBOutlet NSButton *tldButton;
+    
+    __weak IBOutlet NSButton *objButton;
+    
+    NSInteger currentInputMethod;
+    NSInteger currentProcessMethod;
+    
+    
 }
 
 @property (nonatomic, strong) CvVideoCamera* videoSource;
 
 @property (weak) IBOutlet NSView *videoView;
 
-
-
-
 @end
 
 @implementation ViewController
 @synthesize videoSource;
 @synthesize videoView;
+
+
+- (IBAction)selectMethod:(id)sender {
+    
+    switch ([sender tag]) {
+        case 0:
+            currentProcessMethod = methodCMT;
+            [cmtButton setState:1];
+            [tldButton setState:0];
+            [[NSUserDefaults standardUserDefaults] setInteger:methodCMT forKey:processMethod];
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:ctrackingALG_keyPoints]; // 1: 사용
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:ctrackingALG_learning]; // 1: 사용
+            break;
+        case 1:
+            currentProcessMethod = methodTLD;
+            [cmtButton setState:0];
+            [tldButton setState:1];
+            [[NSUserDefaults standardUserDefaults] setInteger:methodTLD forKey:processMethod];
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:ctrackingALG_keyPoints]; // 1: 사용
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:ctrackingALG_learning]; // 1: 사용
+            break;
+        default:
+            break;
+    }
+    
+    if(objecttracking)
+        [self objecttrackingClick:objButton];
+}
+
+
+- (IBAction)selectVideoSource:(id)sender {
+    
+    switch ([sender tag]) {
+        case 0:
+            currentInputMethod = methodCam;
+            [cam1 setState:1];
+            [cam2 setState:0];
+            [streamData setState:0];
+            break;
+        case 1:
+            currentInputMethod = methodCam2;
+            [cam1 setState:0];
+            [cam2 setState:1];
+            [streamData setState:0];
+            break;
+        case 2:
+            currentInputMethod = methodStream;
+            [cam1 setState:0];
+            [cam2 setState:0];
+            [streamData setState:1];
+            break;
+
+        default:
+            break;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:currentInputMethod forKey:inputMethod];
+    
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Information"];
+    [alert setInformativeText:@"Video source changed, restart app"];
+    //[alert setAlertStyle:NSCriticalAlertStyle];
+    //[alert addButtonWithTitle:@"Retake test"];
+    //[alert addButtonWithTitle:@"Cancel test"];
+    
+    NSInteger r = [alert runModal];
+    if(r == 0) {
+        NSString* path = [[NSBundle mainBundle] bundlePath];
+        
+        NSString* cmd = [NSString stringWithFormat:@"open -n %@", path];
+        
+        [self runCommand:cmd];
+        exit(0);
+    }
+   
+    ///////////////////////
+    self.videoSource.getStreamBreak = 1;
+    [self.videoSource stop];
+    [NSThread sleepForTimeInterval:0.06];
+    self.videoSource.inputMethod = currentInputMethod;
+    self.videoSource.getStreamBreak = 0;
+    [self.videoSource start];
+}
+
+-(NSString*)runCommand:(NSString*)commandToRun;
+{
+    NSTask *task;
+    task = [[NSTask alloc] init];
+    [task setLaunchPath: @"/bin/sh"];
+    
+    NSArray *arguments = [NSArray arrayWithObjects:
+                          @"-c" ,
+                          [NSString stringWithFormat:@"%@", commandToRun],
+                          nil];
+    NSLog(@"run command: %@",commandToRun);
+    [task setArguments: arguments];
+    
+    NSPipe *pipe;
+    pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    NSFileHandle *file;
+    file = [pipe fileHandleForReading];
+    
+    [task launch];
+    
+    NSData *data;
+    data = [file readDataToEndOfFile];
+    
+    NSString *output;
+    output = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    return output;
+}
+
+- (IBAction)exitClick:(id)sender {
+    
+    exit(0);
+}
 
 - (IBAction)objecttrackingClick:(id)sender {
     
@@ -70,7 +205,22 @@ using namespace cv;
     }else{
         firstStep = 1;
     }
+    
+    NSButton* bt = (NSButton*)sender;
+    [bt setState:objecttracking];
+    
     NSLog(@"objecttrackingClick %d", objecttracking);
+}
+
+- (void)setButtonTextColor:(NSButton*)sender title:(NSString*)title {
+    NSMutableAttributedString *attrTitle =
+    [[NSMutableAttributedString alloc] initWithString:title];
+    NSUInteger len = [attrTitle length];
+    NSRange range = NSMakeRange(0, len);
+    [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:range];
+    [attrTitle addAttribute:NSFontAttributeName value:[NSFont boldSystemFontOfSize:10] range:range];
+    [attrTitle fixAttributesInRange:range];
+    [sender setAttributedTitle:attrTitle];
 }
 
 - (void)viewDidLoad {
@@ -99,12 +249,60 @@ using namespace cv;
     self.videoSource.delegate = self;
     self.videoSource.recordVideo = NO;
     self.videoSource.grayscaleMode = NO;
-    self.videoSource.inputMethod = [[NSUserDefaults standardUserDefaults] integerForKey:inputMethod];
     
-    [self.view setWantsLayer:YES];
-    [self.view.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
+    self.videoSource.inputMethod = [[NSUserDefaults standardUserDefaults] integerForKey:inputMethod];
+    self.videoSource.getStreamBreak = 0;
+    
+    [mainRootView setWantsLayer:YES];
+    [mainRootView.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
+    [bottomCtlView.contentView setWantsLayer:YES];
+    [bottomCtlView.contentView.layer setBackgroundColor:[[NSColor colorWithCalibratedRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:1.0f] CGColor]];
+//    [bottomCtlView.contentView.layer setBackgroundColor:[[NSColor colorWithCalibratedRed:83/255.0f green:83/255.0f blue:83/255.0f alpha:1.0f] CGColor]];
+    [rightCtlView.contentView setWantsLayer:YES];
+    [rightCtlView.contentView.layer setBackgroundColor:[[NSColor colorWithCalibratedRed:83/255.0f green:83/255.0f blue:83/255.0f alpha:1.0f] CGColor]];
+    
+    [sourceView.titleCell setTextColor:[NSColor whiteColor]];
+    [methodView.titleCell setTextColor:[NSColor whiteColor]];
+    [moveCamView.titleCell setTextColor:[NSColor whiteColor]];
+    
+    [self setButtonTextColor:cam1 title:@"Cam 1"];
+    [self setButtonTextColor:cam2 title:@"Cam 2"];
+    [self setButtonTextColor:streamData title:@"Stream data"];
+    [self setButtonTextColor:cmtButton title:@"CMT"];
+    [self setButtonTextColor:tldButton title:@"TLD"];
+    
+//    [self.view setWantsLayer:YES];
+//    [self.view.layer setBackgroundColor:[[NSColor blackColor] CGColor]];
     //self.view.layer.backgroundColor = CGColorCreateGenericRGB(0, 0, 0, 1.0);
 
+    currentInputMethod = [[NSUserDefaults standardUserDefaults] integerForKey:inputMethod];
+    currentProcessMethod = [[NSUserDefaults standardUserDefaults] integerForKey:processMethod];
+
+    switch (currentInputMethod) {
+        case methodCam:
+            [cam1 setState:1];
+            break;
+        case methodStream:
+            [streamData setState:1];
+            break;
+        case methodCam2:
+            [cam2 setState:1];
+            break;
+        default:
+            break;
+    }
+    
+    switch (currentProcessMethod) {
+        case methodCMT:
+            [cmtButton setState:1];
+            break;
+        case methodTLD:
+            [tldButton setState:1];
+            break;
+        default:
+            break;
+    }
+    
     main = new Main();
     Config config;
     config.configure(main);

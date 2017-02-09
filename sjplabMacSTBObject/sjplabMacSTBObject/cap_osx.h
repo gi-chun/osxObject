@@ -65,6 +65,7 @@
     int imageHeight;
     
     NSInteger inputMethod;
+    NSInteger getStreamBreak;
 }
 
 @property (nonatomic, retain) AVCaptureSession* captureSession;
@@ -83,6 +84,7 @@
 @property (nonatomic, assign) int imageHeight;
 
 @property (nonatomic, assign) NSInteger inputMethod;
+@property (nonatomic, assign) NSInteger getStreamBreak;
 
 @property (nonatomic, retain) NSView* parentView;
 

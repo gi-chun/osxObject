@@ -47,7 +47,8 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
 @interface CvVideoCamera ()
 {
     ImAcq *imAcq;
-    
+    //cv::VideoCapture cap;
+    //int getStreamBreak;
 }
 
 - (void)createVideoDataOutput;
@@ -107,42 +108,44 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
 {
     [super start];
     
-    if(self.inputMethod == methodStream){
-        
-        //imAcq = imAcqAlloc();
-        //imAcq->method = IMACQ_VID; // IMACQ_STREAM, IMACQ_VID
-//        imAcq->imgPath = "/Volumes/BOOTCAMP/Users/gclee/Downloads/151127.mp4";
-//        imAcq->imgPath = "/Users/gclee/Desktop/basketball(3).m4v";
-        //https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8
-        //imAcq->imgPath = "https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8";
-        //imAcqInit(imAcq);
-        
-//        imAcq = imAcqAlloc();
-//        imAcq->method = IMACQ_VID; // IMACQ_STREAM
-//        imAcq->imgPath = "/Volumes/BOOTCAMP/Users/gclee/Downloads/151127.mp4";
-//        //    imAcq->imgPath = "/Users/gclee/Desktop/basketball(4).m4v";
-//        imAcqInit(imAcq);
-        
-        // start get stream data
-//        [self performSelectorOnMainThread:@selector(getSteamData) withObject:nil waitUntilDone:NO];
-        [self performSelectorInBackground:@selector(getSteamData) withObject:nil];
-//        [NSThread detachNewThreadSelector:@selector(getSteamData) toTarget:self withObject:nil];
-//        [self performSelector:@selector(getSteamData) withObject:nil afterDelay:2.0];
-//        [self getSteamData];
-//        dispatch_queue_t queue = dispatch_queue_create("com.example.MyQueue", NULL);
-//        dispatch_async(queue, ^{
-//            [self getSteamData];
-//        });
-        
-        
-
-//        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 0.05
-//                                                      target: self
-//                                                    selector:@selector(getSteamData:)
-//                                                    userInfo: nil repeats:YES];
-        // end
-    }
-
+//    if(self.inputMethod == methodStream){
+//        
+//        //imAcq = imAcqAlloc();
+//        //imAcq->method = IMACQ_VID; // IMACQ_STREAM, IMACQ_VID
+////        imAcq->imgPath = "/Volumes/BOOTCAMP/Users/gclee/Downloads/151127.mp4";
+////        imAcq->imgPath = "/Users/gclee/Desktop/basketball(3).m4v";
+//        //https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8
+//        //imAcq->imgPath = "https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8";
+//        //imAcqInit(imAcq);
+//        
+////        imAcq = imAcqAlloc();
+////        imAcq->method = IMACQ_VID; // IMACQ_STREAM
+////        imAcq->imgPath = "/Volumes/BOOTCAMP/Users/gclee/Downloads/151127.mp4";
+////        //    imAcq->imgPath = "/Users/gclee/Desktop/basketball(4).m4v";
+////        imAcqInit(imAcq);
+//        
+//        // start get stream data
+////        [self performSelectorOnMainThread:@selector(getSteamData) withObject:nil waitUntilDone:NO];
+//        [self performSelectorInBackground:@selector(getSteamData) withObject:nil];
+////        [NSThread detachNewThreadSelector:@selector(getSteamData) toTarget:self withObject:nil];
+////        [self performSelector:@selector(getSteamData) withObject:nil afterDelay:2.0];
+////        [self getSteamData];
+////        dispatch_queue_t queue = dispatch_queue_create("com.example.MyQueue", NULL);
+////        dispatch_async(queue, ^{
+////            [self getSteamData];
+////        });
+//        
+//        
+//
+////        NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 0.05
+////                                                      target: self
+////                                                    selector:@selector(getSteamData:)
+////                                                    userInfo: nil repeats:YES];
+//        // end
+//    }
+    
+    [self performSelectorInBackground:@selector(getSteamData) withObject:nil];
+   
     if (self.recordVideo == YES) {
         NSError* error = nil;
         if ([[NSFileManager defaultManager] fileExistsAtPath:[self videoFileString]]) {
@@ -160,6 +163,8 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
 {
     [super stop];
 
+    //cap.release();
+    
     self.videoDataOutput = nil;
     
 //    if (videoDataOutputQueue) {
@@ -175,11 +180,30 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
 //- (void)getSteamData:(NSTimer *)timer
 - (void)getSteamData
 {
-    //https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8
-//    cv::VideoCapture cap(0);
     cv::VideoCapture cap;
-    cap.open("https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8");
-    //cv::VideoCapture cap("https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8");
+    
+    switch (self.inputMethod) {
+        case methodCam:
+            cap.release();
+            cap.open(0);
+            break;
+        case methodCam2:
+            cap.release();
+            cap.open(1);
+            break;
+        case methodStream:
+            cap.release();
+            cap.open("https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8");
+            break;
+        default:
+            break;
+    }
+//    //https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8
+////    cv::VideoCapture cap(0);
+//    //cv::VideoCapture cap;
+//    cap.open("https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8");
+//    //cv::VideoCapture cap("https://devimages.apple.com.edgekey.net/samplecode/avfoundationMedia/AVFoundationQueuePlayer_HLS2/master.m3u8");
+  
     cv::Mat frame;
     
     if(!cap.isOpened()){
@@ -188,6 +212,11 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
     }
     //while(imAcqHasMoreFrames(imAcq)){
     while(1){
+        
+        if(self.getStreamBreak){
+            cap.release();
+            break;
+        }
         
         cap >> frame;
         if(frame.empty()){
@@ -485,17 +514,28 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;}
 
 - (void)createCaptureOutput;
 {
-    if(self.inputMethod == methodCam){
-        [self createVideoDataOutput];
-        if (self.recordVideo == YES) {
-            [self createVideoFileOutput];
-        }
-    }else{
-        self.customPreviewLayer = [CALayer layer];
-        self.customPreviewLayer.bounds = CGRectMake(0, 0, self.parentView.frame.size.width, self.parentView.frame.size.height);
-        NSLog(@"[Camera] layer width %f : height %f", self.parentView.frame.size.width, self.parentView.frame.size.height);
-        [self layoutPreviewLayer];
-    }
+//    if(self.inputMethod == methodCam){
+//        [self createVideoDataOutput];
+//        if (self.recordVideo == YES) {
+//            [self createVideoFileOutput];
+//        }
+//    }else if(self.inputMethod == methodCam2){
+//        [self createVideoDataOutput];
+//        if (self.recordVideo == YES) {
+//            [self createVideoFileOutput];
+//        }
+//    }else{
+//        self.customPreviewLayer = [CALayer layer];
+//        self.customPreviewLayer.bounds = CGRectMake(0, 0, self.parentView.frame.size.width, self.parentView.frame.size.height);
+//        NSLog(@"[Camera] layer width %f : height %f", self.parentView.frame.size.width, self.parentView.frame.size.height);
+//        [self layoutPreviewLayer];
+//    }
+    
+    self.customPreviewLayer = [CALayer layer];
+    self.customPreviewLayer.bounds = CGRectMake(0, 0, self.parentView.frame.size.width, self.parentView.frame.size.height);
+    NSLog(@"[Camera] layer width %f : height %f", self.parentView.frame.size.width, self.parentView.frame.size.height);
+    [self layoutPreviewLayer];
+
 }
 
 - (void)createCustomVideoPreview;

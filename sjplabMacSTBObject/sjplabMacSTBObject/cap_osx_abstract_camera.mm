@@ -62,6 +62,7 @@
 @synthesize imageWidth;
 @synthesize imageHeight;
 @synthesize inputMethod;
+@synthesize getStreamBreak;
 
 
 @synthesize defaultFPS;
@@ -167,12 +168,18 @@
         
         switch (inputMethod) {
             case methodCam:
-                [self startCaptureSession];
-                break;
-            case methodStream:
+                //[self startCaptureSession];
                 [self startCaptureStream];
                 break;
-                
+            case methodStream:
+                //[self startCaptureSession];
+                [self startCaptureStream];
+                break;
+            case methodCam2:
+                //[self startCaptureSession];
+                [self startCaptureStream];
+                break;
+
             default:
                 break;
         }
