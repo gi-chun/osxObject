@@ -46,11 +46,19 @@
                         <tbody>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>업무분야1:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.business_field_1 }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
-                                <td data-pg-collapsed><b>업무분야2:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td data-pg-collapsed><b>업무분야1 기타:</b></td>
+                                <td colspan="2">${map.business_field_1_etc }<br></td>
+                            </tr>
+                            <tr data-pg-collapsed>
+                                <td data-pg-collapsed><b>업무분야1:</b></td>
+                                <td colspan="2">${map.business_field_2 }<br></td>
+                            </tr>
+                            <tr data-pg-collapsed>
+                                <td data-pg-collapsed><b>업무분야2 기타:</b></td>
+                                <td colspan="2">${map.business_field_2_etc }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -60,19 +68,19 @@
                         <tbody>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>요청팀:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.request_team }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>요청자:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.requester_name }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>검토팀:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.review_team }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>검토자:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.reviewer_name }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -82,15 +90,15 @@
                         <tbody>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>요청날짜:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.request_time }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>결제희망 기한일:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.deadline }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>결제날짜:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.approval_date }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,15 +108,15 @@
                         <tbody data-pg-collapsed>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>요청내용:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.request_details }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>승인(후속)내용:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.approve_details }<br></td>
                             </tr>
                             <tr>
                                 <td data-pg-collapsed><b>반려내용:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.notallow_details }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -118,11 +126,11 @@
                         <tbody data-pg-collapsed>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>근태/차량 시작일:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.start_time }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>근태/차량 종료일:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.end_time }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -132,47 +140,47 @@
                         <tbody data-pg-collapsed>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>제작팀:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.product_team }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>프로젝트명:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.prj_name }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>비용 대분류:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.first_classification }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>비용 중분류:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.second_classification }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>비용 중분류 기타:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.second_classification_etc }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>비용 소분류:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.third_classification }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>비용 소분류 기타:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.third_classification_etc }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>내용:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.contents }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>사용일:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.use_day }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>구분:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.division }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>이용금액/렌트비용:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.amount_used }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -182,31 +190,31 @@
                         <tbody>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>운전자팀:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.driver_team }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>운전자:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.driver }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>동행인원:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.companion }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>출장및운행 사유:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.business_trip_reason }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>출장지역:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.business_trip_area }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>배차희망차종:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.desired_car }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>운전전 총거리(KM):</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.before_running_distance }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -216,23 +224,23 @@
                         <tbody>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>운전후 총거리(KM):</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.after_running_distance }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>사용차량:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.use_car }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>주유상태:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.fuel_status }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>차량내부 정리:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.clean_inner }<br></td>
                             </tr>
                             <tr data-pg-collapsed>
                                 <td data-pg-collapsed><b>4면 사진촬영:</b></td>
-                                <td colspan="2">지출예산 /내역서(사용전)<br></td>
+                                <td colspan="2">${map.take_photo_four_sides }<br></td>
                             </tr>
                         </tbody>
                     </table>
@@ -240,13 +248,12 @@
             </div>
             <div class="page-header">
                 <p style="">승인내역을 확인합니다. TOOWIDE</p>
-                <p>출력일: 2017-07-14 14:00:00</p>
+                <p>출력일: ${map.today }</p>
             </div>
             <img src="img/logo.png" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
             <div class="well">
                 <p>주식회사 투와이드컴퍼니</p>
                 <p>서울시 서초구 방배동 915-10 우성빌딩 2F Tel 02.593.8451~4</p>
-                <p>Copyright TOOWIDE All rights reserved.</p>
             </div>
         </div>         
         <!-- /container -->

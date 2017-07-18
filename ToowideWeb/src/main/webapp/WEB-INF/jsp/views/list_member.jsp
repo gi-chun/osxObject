@@ -50,7 +50,7 @@
                         <span class="sr-only">Toggle navigation</span> Menu 
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">TOOWIDE</a>
+                    <a class="navbar-brand page-scroll" href="index.jsp">TOOWIDE</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,7 +77,7 @@
                             <a id="menu_team" class="page-scroll" href="listTeam.do"">팀(TEAM)</a>
                         </li>
                         <li>
-                            <a id="menu_notice" class="page-scroll" href="#contact">공지사항</a>
+                            <a id="menu_notice" class="page-scroll" href="listNotice.do">공지사항</a>
                         </li>
                         <li>
                             <a id="menu_import" class="page-scroll" href="importCardData.do">카드승인 데이터 적재</a>

@@ -20,19 +20,19 @@ public class FileUtils {
 	
 	//private static final String filePath = "C:\\PMS\\file\\";
 	
-	private static final String filePath = "/Users/gclee/work_web/files/";
-	private static final String filePathProject = "Project/";
-	private static final String filePathRequest = "Request/";
-	private static final String filePathCost = "Cost/";
-	private static final String filePathExcel = "Excel/";
-	private static final String filePathDiv = "/";
+//	private static final String filePath = "/Users/gclee/work_web/files/";
+//	private static final String filePathProject = "Project/";
+//	private static final String filePathRequest = "Request/";
+//	private static final String filePathCost = "Cost/";
+//	private static final String filePathExcel = "Excel/";
+//	private static final String filePathDiv = "/";
 
-//	private static final String filePath = "C:\\PMS\\file\\";
-//	private static final String filePathProject = "Project\\";
-//	private static final String filePathRequest = "Request\\";
-//	private static final String filePathCost = "Cost\\";
-//	private static final String filePathExcel = "Excel\\";
-//	private static final String filePathDiv = "\\";
+	private static final String filePath = "C:\\PMS\\file\\";
+	private static final String filePathProject = "Project\\";
+	private static final String filePathRequest = "Request\\";
+	private static final String filePathCost = "Cost\\";
+	private static final String filePathExcel = "Excel\\";
+	private static final String filePathDiv = "\\";
 	
 	
 public void deleteImportExcelFile(String deleteFullPathFile) throws Exception{

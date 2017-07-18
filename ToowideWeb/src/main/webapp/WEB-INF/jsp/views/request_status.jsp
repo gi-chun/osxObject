@@ -51,7 +51,7 @@
                         <span class="sr-only">Toggle navigation</span> Menu 
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">TOOWIDE</a>
+                    <a class="navbar-brand page-scroll" href="index.jsp">TOOWIDE</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -78,7 +78,7 @@
                             <a id="menu_team" class="page-scroll" href="listTeam.do"">팀(TEAM)</a>
                         </li>
                         <li>
-                            <a id="menu_notice" class="page-scroll" href="#contact">공지사항</a>
+                            <a id="menu_notice" class="page-scroll" href="listNotice.do">공지사항</a>
                         </li>
                         <li>
                            <a id="menu_import" class="page-scroll" href="importCardData.do">카드승인 데이터 적재</a>
@@ -669,7 +669,7 @@
                     </div>                     
                     <div class="modal-footer"> 
                         <button id="id_carClose" type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>                         
-                        <button id="id_carSave" type="button" class="btn btn-primary">저장</button> 
+                        <button id="id_carSave" type="button" class="btn btn-primary">요청</button> 
                         <button id="id_carRetry" type="button" class="btn btn-primary">재요청</button> 
                         <button id="id_carApprove" type="button" class="btn btn-primary">승인</button> 
                         <button id="id_carNotAllow" type="button" class="btn btn-primary">반려</button>    
@@ -991,16 +991,19 @@
     			$('#id_costRetry').hide();
 				$('#id_costApprove').show();
 				$('#id_costNotAllow').show();
+				$('#id_costReport').hide();
 				
 				$('#id_carSave').hide();
 				$('#id_carRetry').hide();
 				$('#id_carApprove').show();
 				$('#id_carNotAllow').show();
+				$('#id_carReport').hide();
 				
 				$('#id_normalSave').hide();
 				$('#id_normalRetry').hide();
 				$('#id_normalApprove').show();
 				$('#id_normalNotAllow').show();
+				$('#id_normalReport').hide();
 				
 				$('#addFileDivCost').hide();
 				$('#addFileDivCar').hide();
@@ -1426,6 +1429,16 @@
 			
 			$("#id_request_detail_search").bind('click', function () { 
 				g_isUpdate = 1;
+				
+				$('#id_costReport').hide();
+				$('#id_carReport').hide();
+				$('#id_normalReport').hide();
+				
+				if(g_searchKind == 2 || g_searchKind == 5){
+					$('#id_costReport').show();
+					$('#id_carReport').show();
+					$('#id_normalReport').show();
+				}
 				
 				if(g_current_business_field_1 == "재무"){
 					
@@ -2012,7 +2025,7 @@ function fn_updateCostPerRequestNumber(){
 			
 	    	var comSubmit = new ComSubmitOriginal();
 			comSubmit.setUrl("<c:url value='/showReportPage.do' />");
-			comSubmit.addParam("g_cost_prg_num", g_cost_prg_num);
+			comSubmit.addParam("g_current_request_prg_num", g_current_request_prg_num);
 			comSubmit.submit();
 	    }
 	 	
@@ -3324,6 +3337,7 @@ function fn_updateCostPerRequestNumber(){
 		                $('#crcFormRentCost').val(data.map["map"]["internal_car_rent_cost"]);
 		                
 		                fn_selectRequestFiles();
+		                fn_selectCostRentPerRequestPRGNumber();
 						
 					}else if(g_current_request_mod == "normal"){//일반업무
 						
@@ -3377,7 +3391,33 @@ function fn_updateCostPerRequestNumber(){
         	}
 		}
 		
-	function fn_selectCostDetailPerRequestPRGNumber(){
+		function fn_selectCostRentPerRequestPRGNumber(){
+	 		
+			var comAjax = new ComAjax();
+        	comAjax.setUrl("<c:url value='/selectCostDetailPerRequestPRGNumber.do' />");
+        	comAjax.addParam("g_current_request_prg_num", g_current_request_prg_num);
+        	comAjax.setCallback("fn_selectCostRentPerRequestPRGNumber_CallBack");
+        	comAjax.ajax();
+        	
+	 	}
+	 		
+		function fn_selectCostRentPerRequestPRGNumber_CallBack(data){
+			var success = data.map["success"];
+			var isData = data.map["isData"];
+        	
+        	if(!success){
+        		var errorString = data.map["fail_desc"];
+        		alert('error: ' + errorString); 
+        	}else{
+        		
+        		if(isData){
+        			$('#crcFormRentCost').val(data.map["map"]["amount_used"]);
+	            		
+        		}
+        	}
+	 	}
+		
+		function fn_selectCostDetailPerRequestPRGNumber(){
 	 		
 			var comAjax = new ComAjax();
         	comAjax.setUrl("<c:url value='/selectCostDetailPerRequestPRGNumber.do' />");

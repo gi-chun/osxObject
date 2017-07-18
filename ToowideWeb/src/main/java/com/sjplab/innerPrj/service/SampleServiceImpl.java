@@ -30,8 +30,8 @@ import com.sjplab.innerPrj.common.common.Member;
 
 @Service("sampleService")
 public class SampleServiceImpl implements SampleService{
-	private static final String logoPath = "/Users/gclee/work_web/workspace/ToowideWeb/src/main/webapp/img/logo.png";
-//	private static final String logoPath = "C:\\WEBSERVER\\apache-tomcat-9.0.0.M20\\webapps\\ToowideWeb\\img\\logo.png";
+//	private static final String logoPath = "/Users/gclee/work_web/workspace/ToowideWeb/src/main/webapp/img/logo.png";
+	private static final String logoPath = "C:\\WEBSERVER\\apache-tomcat-9.0.0.M20\\webapps\\ToowideWeb\\img\\logo.png";
 	
 	Logger log = Logger.getLogger(this.getClass());
 	
@@ -87,13 +87,11 @@ public class SampleServiceImpl implements SampleService{
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-//			Map<String, Object> tempMap = sampleDAO.selectBoardDetail(map);
-			Map<String, Object> tempMap = null;
+			Map<String, Object> tempMap = sampleDAO.selectRequestPerRequestPRGNumber(map);
 			resultMap.put("map", tempMap);
 			
-//			List<Map<String,Object>> list = sampleDAO.selectFileList(map);
-			List<Map<String,Object>> list = null;
-			resultMap.put("list", list);
+			Map<String, Object> tempMap2 = sampleDAO.selectCostDetailPerRequestPRGNumber(map);
+			resultMap.put("map2", tempMap2);
 			
 			resultMap.put("success", 1);
 		}
@@ -255,6 +253,70 @@ public class SampleServiceImpl implements SampleService{
 	}
 	
 	@Override
+	public Map<String, Object> selectNoticeList(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		try {
+			List<Map<String,Object>> list = sampleDAO.selectNoticeList(map);
+			resultMap.put("success", 1);
+			resultMap.put("list", list);
+			resultMap.put("list_count",  list.size());
+		}
+		catch(Exception e){
+			log.debug("===============          selectNoticeList fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectNoticeDetail(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+				
+			Map<String, Object> tempMap = sampleDAO.selectNoticeDetail(map);
+			resultMap.put("isData", 1);
+			if (tempMap == null){
+				resultMap.put("isData", 0);
+			}
+			resultMap.put("map", tempMap);
+			resultMap.put("success", 1);
+		}
+		catch(Exception e){
+			log.debug("===============          selectNoticeDetail fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> getNotice(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+				
+			Map<String, Object> tempMap = sampleDAO.getNotice(map);
+			resultMap.put("isData", 1);
+			if (tempMap == null){
+				resultMap.put("isData", 0);
+			}
+			resultMap.put("map", tempMap);
+			resultMap.put("success", 1);
+		}
+		catch(Exception e){
+			log.debug("===============          getNotice fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		return resultMap;
+	}
+	
+	@Override
 	public Map<String, Object> selectTeamList(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		
 		Map<String, Object> resultMap = new HashMap<String,Object>();
@@ -297,6 +359,123 @@ public class SampleServiceImpl implements SampleService{
 	}
 	
 	@Override
+	public Map<String, Object> insertNotice(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		String sTitle = "[공지사항] "+map.get("frmSubject").toString();
+		String sSubject = map.get("frmSubject").toString();
+		String sSubContents = map.get("frmContents").toString();
+		String sContents = "";
+	    String sContentsTemp = "";
+	    
+	    sContentsTemp += "<html>";
+		sContentsTemp += "<head>";
+		sContentsTemp += "    <title>Welcome to SJPLab</title>";
+		sContentsTemp += "</head>";
+		sContentsTemp += "<body>";
+		sContentsTemp += "    <h1>제목</h1>";
+		sContentsTemp += "    <table cellspacing='0' style='border: 2px dashed #FB4314; width: 1000px; height: 500px;'>";
+		sContentsTemp += "        <tr style='background-color: #e0e0e0;'>";
+		sContentsTemp += "            <td align='center'><img src='cid:identifier1'></td>";
+		sContentsTemp += "        </tr>";
+		sContentsTemp += "        <tr>";
+		sContentsTemp += "            <th align='center'>주제:</th><td>주제내용</td>";
+		sContentsTemp += "        <tr>";
+		sContentsTemp += "            <th align='center'>내용:</th><td>내용내용</td>";
+		sContentsTemp += "        </tr>";
+		sContentsTemp += "        <tr style='background-color: #e0e0e0;'>";
+		sContentsTemp += "            <th>TOOWIDE:</th><td><a href='http://112.221.229.148:8080'>TOOWIDE Project Management System</a></td>";
+		sContentsTemp += "        </tr>";
+		sContentsTemp += "    </table>";
+		sContentsTemp += "</body>";
+		sContentsTemp += "</html>";
+		
+		try {
+			sampleDAO.insertNotice(map);
+			resultMap.put("success", 1);
+			
+			sContents = "";
+			sContents = sContentsTemp;
+			
+			sContents = sContents.replace("제목", sTitle);
+			sContents = sContents.replace("주제내용", sSubject);
+			sContents = sContents.replace("내용내용", sSubContents);
+			
+			Map<String, Object> requestMap = new HashMap<String,Object>();
+			
+			MimeMessage message2 = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper2 = new MimeMessageHelper(message2, true, "UTF-8");
+			messageHelper2.setFrom("pms.sjplab@gmail.com");
+			messageHelper2.setSubject(sTitle);
+			messageHelper2.setText(sContents, true);
+			FileSystemResource res = new FileSystemResource(new File(logoPath));
+			messageHelper2.addInline("identifier1", res);
+			
+			List<Map<String,Object>> list = sampleDAO.selectAllEmailList(requestMap);
+			Map<String, Object> tempMap2 = new HashMap<String,Object>();
+			
+			for(int i=0, size=list.size(); i<size; i++){
+				tempMap2 = list.get(i);
+				if(i == 0){
+					messageHelper2.setTo(tempMap2.get("email_addr").toString());
+				}else if(i == 1){
+					messageHelper2.setCc(tempMap2.get("email_addr").toString());
+				}else{
+					messageHelper2.addCc(tempMap2.get("email_addr").toString());
+				}
+				tempMap2.clear();
+			}
+			
+			mailSender.send(message2);
+			
+		}
+		catch(Exception e){
+			log.debug("===============          insertNotice fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> updateNotice(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			sampleDAO.updateNotice(map);
+			resultMap.put("success", 1);
+		}
+		catch(Exception e){
+			log.debug("===============          updateNotice fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> deleteNotice(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			sampleDAO.deleteNotice(map);
+			resultMap.put("success", 1);
+		}
+		catch(Exception e){
+			log.debug("===============          deleteNotice fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
+		
+		return resultMap;
+	}
+	
+	@Override
 	public Map<String, Object> deleteTeam(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		
 		Map<String, Object> resultMap = new HashMap<String,Object>();
@@ -320,40 +499,52 @@ public class SampleServiceImpl implements SampleService{
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		Map<String, Object> tempMap = new HashMap<String,Object>();
 		
-		HttpSession session = request.getSession(true);
-		Member member = (Member)session.getAttribute("member");
-		String goCommand = (String)session.getAttribute("goCommand");
-		
-		if(member == null){
-			resultMap.put("session_data", 0);
-		}else{
+		try {
+			
+			resultMap.put("isData", 1);
 			resultMap.put("session_data", 1);
+			resultMap.put("success", 1);
+		
+			HttpSession session = request.getSession(true);
+			Member member = (Member)session.getAttribute("member");
+			String goCommand = (String)session.getAttribute("goCommand");
+			
+			if(member == null){
+				resultMap.put("session_data", 0);
+				resultMap.put("isData", 1);
+			}else{	
+				tempMap.put("EMPLOYEE_NUM", member.getEmployee_num());
+				tempMap.put("MEMBER_NAME", member.getMember_name());
+				tempMap.put("EMAIL_ADDR", member.getEmail_addr());
+				tempMap.put("TEAM_NAME", member.getTeam_name());
+				tempMap.put("POSITION", member.getPosition());
+				tempMap.put("AUTHORITY", member.getAuthority());
+				tempMap.put("goCommand", goCommand);
+				
+				tempMap.put("PRJ_NUM", (String)session.getAttribute("PRJ_NUM"));
+				tempMap.put("PRJ_NAME", (String)session.getAttribute("PRJ_NAME"));
+				tempMap.put("PRODUCT_TEAM", (String)session.getAttribute("PRODUCT_TEAM"));
+				tempMap.put("CHARGE_PM", (String)session.getAttribute("CHARGE_PM"));
+				tempMap.put("CHARGE_PD", (String)session.getAttribute("CHARGE_PD"));
+				tempMap.put("CONTRACT_AMOUNT", (String)session.getAttribute("CONTRACT_AMOUNT"));
+				tempMap.put("PRODUCT_AMOUNT", (String)session.getAttribute("PRODUCT_AMOUNT"));
+				
+				tempMap.put("S_isSession", (String)session.getAttribute("S_isSession"));
+				tempMap.put("S_goCommand", (String)session.getAttribute("S_goCommand"));
+				tempMap.put("S_STANDARD_YEAR", (String)session.getAttribute("S_STANDARD_YEAR"));
+				tempMap.put("S_STANDARD_QUARTER", (String)session.getAttribute("S_STANDARD_QUARTER"));
+				tempMap.put("S_PRODUCT_TEAM", (String)session.getAttribute("S_PRODUCT_TEAM"));
+				tempMap.put("S_PRJ_NAME", (String)session.getAttribute("S_PRJ_NAME"));
+				tempMap.put("S_PRJ_NUMBER", (String)session.getAttribute("S_PRJ_NUMBER"));
+				resultMap.put("sessionMap", tempMap);
+			}
+		
 		}
-		
-		tempMap.put("EMPLOYEE_NUM", member.getEmployee_num());
-		tempMap.put("MEMBER_NAME", member.getMember_name());
-		tempMap.put("EMAIL_ADDR", member.getEmail_addr());
-		tempMap.put("TEAM_NAME", member.getTeam_name());
-		tempMap.put("POSITION", member.getPosition());
-		tempMap.put("AUTHORITY", member.getAuthority());
-		tempMap.put("goCommand", goCommand);
-		
-		tempMap.put("PRJ_NUM", (String)session.getAttribute("PRJ_NUM"));
-		tempMap.put("PRJ_NAME", (String)session.getAttribute("PRJ_NAME"));
-		tempMap.put("PRODUCT_TEAM", (String)session.getAttribute("PRODUCT_TEAM"));
-		tempMap.put("CHARGE_PM", (String)session.getAttribute("CHARGE_PM"));
-		tempMap.put("CHARGE_PD", (String)session.getAttribute("CHARGE_PD"));
-		tempMap.put("CONTRACT_AMOUNT", (String)session.getAttribute("CONTRACT_AMOUNT"));
-		tempMap.put("PRODUCT_AMOUNT", (String)session.getAttribute("PRODUCT_AMOUNT"));
-		
-		tempMap.put("S_isSession", (String)session.getAttribute("S_isSession"));
-		tempMap.put("S_goCommand", (String)session.getAttribute("S_goCommand"));
-		tempMap.put("S_STANDARD_YEAR", (String)session.getAttribute("S_STANDARD_YEAR"));
-		tempMap.put("S_STANDARD_QUARTER", (String)session.getAttribute("S_STANDARD_QUARTER"));
-		tempMap.put("S_PRODUCT_TEAM", (String)session.getAttribute("S_PRODUCT_TEAM"));
-		tempMap.put("S_PRJ_NAME", (String)session.getAttribute("S_PRJ_NAME"));
-		tempMap.put("S_PRJ_NUMBER", (String)session.getAttribute("S_PRJ_NUMBER"));
-		resultMap.put("sessionMap", tempMap);
+		catch(Exception e){
+			log.debug("===============          selectCostDetailPerProject fail     =======" + e.getMessage());
+			resultMap.put("success", 0);
+			resultMap.put("fail_desc", e.getMessage());
+		}
 		
 		return resultMap;
 	}

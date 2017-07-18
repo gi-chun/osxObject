@@ -18,17 +18,17 @@ import com.sjplab.innerPrj.common.service.CommonService;
 @Controller
 public class CommonController {
 	
-	private static final String filePath = "/Users/gclee/work_web/files/";
-	private static final String filePathProject = "Project/";
-	private static final String filePathRequest = "Request/";
-	private static final String filePathCost = "Cost/";
-	private static final String filePathDiv = "/";
+//	private static final String filePath = "/Users/gclee/work_web/files/";
+//	private static final String filePathProject = "Project/";
+//	private static final String filePathRequest = "Request/";
+//	private static final String filePathCost = "Cost/";
+//	private static final String filePathDiv = "/";
 
-//	private static final String filePath = "C:\\PMS\\file\\";
-//	private static final String filePathProject = "Project\\";
-//	private static final String filePathRequest = "Request\\";
-//	private static final String filePathCost = "Cost\\";
-//	private static final String filePathDiv = "\\";
+	private static final String filePath = "C:\\PMS\\file\\";
+	private static final String filePathProject = "Project\\";
+	private static final String filePathRequest = "Request\\";
+	private static final String filePathCost = "Cost\\";
+	private static final String filePathDiv = "\\";
 	
 	Logger log = Logger.getLogger(this.getClass());
 	

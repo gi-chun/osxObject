@@ -24,6 +24,7 @@
         <title>Creative - Start Bootstrap Theme</title>
         <!-- Bootstrap Core CSS -->
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="vendor/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet">
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -50,7 +51,7 @@
                         <span class="sr-only">Toggle navigation</span> Menu 
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">TOOWIDE</a>
+                    <a class="navbar-brand page-scroll" href="index.jsp">TOOWIDE</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,7 +78,7 @@
                             <a id="menu_team" class="page-scroll" href="listTeam.do"">팀(TEAM)</a>
                         </li>
                         <li>
-                            <a id="menu_notice" class="page-scroll" href="#contact">공지사항</a>
+                            <a id="menu_notice" class="page-scroll" href="listNotice.do">공지사항</a>
                         </li>
                         <li>
                             <a id="menu_import" class="page-scroll" href="importCardData.do">카드승인 데이터 적재</a>
@@ -245,7 +246,7 @@
         </section>
         
         <!-- BEGIN # MODAL LOGIN -->
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myLoginLabel" aria-hidden="true" style="display: none;">
     	<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
@@ -336,6 +337,27 @@
 		</div>
 	</div>
     <!-- END # MODAL LOGIN -->
+    
+    <!-- Creates the bootstrap modal where the image will appear -->
+    <div class="modal fade pg-show-modal" id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true"> 
+            <div class="modal-dialog"> 
+                <div class="modal-content"> 
+                    <div class="modal-header"> 
+                        <button id="id_img_close2" ype="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                         
+                        <h4 id="frmTitle" class="modal-title"> 등록</h4> 
+                    </div>                     
+                    <div class="modal-body">
+				        <img align="middle" src="" id="imagepreview" class="img-responsive center-block" >
+				    </div>
+				    <div class="form-group"> 
+			          	<textarea id="frmContents" class="form-control" rows="30"></textarea>
+			        </div>                  
+                    <div class="modal-footer"> 
+                        <button id="id_img_close" type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>
         
         <%@ include file="/WEB-INF/include/include-body.jspf" %>
         
@@ -343,6 +365,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap-dialog.min.js"></script>
         <!-- Plugin JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
         <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
@@ -370,18 +393,17 @@
     		$('#menu_import').hide();
     		$('#menu_verification').hide();
     		
+    		$("#id_img_close2").bind('click', function () { 
+    			$('#login-modal').modal('hide');
+    		});
+    		
+    		$("#id_img_close").bind('click', function () { 
+    			$('#login-modal').modal('hide');
+    		});
+    		
+			fn_getNotice();
+			
     		fn_getSession();
-        	/* fn_selectBoardList(1);
-			
-			$("#write").on("click", function(e){ //글쓰기 버튼
-				e.preventDefault();
-				fn_openBoardWrite();
-			});	
-			
-			$("a[name='title']").on("click", function(e){ //제목 
-				e.preventDefault();
-				fn_openBoardDetail($(this));
-			}); */
 			
 		});
         
@@ -394,6 +416,36 @@
         var $msgShowTime = 2000;
         var g_authority;
         
+	        function fn_getNotice(){
+	        	var comAjax = new ComAjax();
+	        	comAjax.setUrl("<c:url value='/getNotice.do' />");
+	        	comAjax.setCallback("fn_getNoticeCallback");
+	        	comAjax.ajax();
+	        }
+	        
+			function fn_getNoticeCallback(data){
+				        	
+				var success = data.map["success"];
+				var isData = data.map["isData"];
+	        	
+	        	if(!success){
+	        		var errorString = data.map["fail_desc"];
+	        		alert('error: ' + errorString); 
+	        	}else{
+	        		
+	        		if(isData){
+						var varText = "[공지사항] ";
+						varText += data.map["map"]["subject"];
+	        			$('#frmTitle').text(varText);
+	        			$('#frmContents').val(data.map["map"]["contents"]);
+	        			
+	        			$('#frmContents').attr('disabled',true);
+	        			$('#imagepreview').attr('src', "img/portfolio-1.jpg");
+	        			$('#imagemodal').modal('show');
+	        		}
+	        	}
+			}
+		
 	        function fn_getSession(){
 	        	var comAjax = new ComAjax();
 	        	comAjax.setUrl("<c:url value='/getSession.do' />");
@@ -402,17 +454,38 @@
 	        }
 	        
 			function fn_getSessionCallback(data){
-				        	
-	        	var session_data = data.map["session_data"]; //is session so 1, 0
-	        	//var sessionMap= data.map["sessionMap"];
-	        	g_member_name = data.map["sessionMap"]["MEMBER_NAME"];
-	        	var team_name = '관리팀';
-	        	var team_db_name = data.map["sessionMap"]["TEAM_NAME"];
-	        	g_authority = data.map["sessionMap"]["AUTHORITY"];
+				      
+				try {
+				
+					var success = data.map["success"];
+					var isData = data.map["isData"];
+		        	
+		        	if(!success){
+		        		var errorString = data.map["fail_desc"];
+		        		alert('error: ' + errorString); 
+		        	}else{
+		        		
+		        		if(isData){
+		        			var session_data = data.map["session_data"]; //is session so 1, 0
+		    	        	//var sessionMap= data.map["sessionMap"];
+		    	        	g_member_name = data.map["sessionMap"]["MEMBER_NAME"];
+		    	        	var team_name = '관리팀';
+		    	        	var team_db_name = data.map["sessionMap"]["TEAM_NAME"];
+		    	        	g_authority = data.map["sessionMap"]["AUTHORITY"];
+		    	        	
+		    	        	if(session_data){
+		    	        		pageChange(g_authority);
+		    	        	}
+		        		}
+		        	}
+		        	
 	        	
-	        	if(session_data){
-	        		pageChange(g_authority);
-	        	}
+				}
+				catch(err) {
+// 				    document.getElementById("demo").innerHTML = err.message;
+				}
+	        	
+	        	
 			}
         
 	        function fn_login($login_user, $login_pwd){
@@ -435,7 +508,11 @@
 	             	
 	        	    pageChange(g_authority);
 	        	    
-	        	    $('#close_login_btn').click();
+// 	        	    $('#close_login_btn').click();
+// 					$('#login-modal').modal('hide');
+	        	    
+	        	    fn_getNotice();
+	        	    
 	             } else {
 	             	msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
 	             }

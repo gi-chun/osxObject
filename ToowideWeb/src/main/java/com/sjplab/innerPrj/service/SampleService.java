@@ -27,11 +27,23 @@ public interface SampleService {
 	
 	Map<String, Object> selectTeamList(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
+	Map<String, Object> selectNoticeList(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
 	Map<String, Object> selectTeamNames(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
+	Map<String, Object> deleteNotice(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
 	Map<String, Object> deleteTeam(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
 	Map<String, Object> insertTeam(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
+	Map<String, Object> insertNotice(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
+	Map<String, Object> updateNotice(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
+	Map<String, Object> selectNoticeDetail(Map<String, Object> map, HttpServletRequest request) throws Exception ;
+	
+	Map<String, Object> getNotice(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
 	Map<String, Object> insertCostRequest(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	

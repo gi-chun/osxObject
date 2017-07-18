@@ -71,6 +71,11 @@ public class SampleDAO extends AbstractDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectAllEmailList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("sample.selectAllEmailList", map);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectCostDetailPerRequestPRGNumber(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("sample.selectCostDetailPerRequestPRGNumber", map);
 	}
@@ -83,6 +88,11 @@ public class SampleDAO extends AbstractDAO{
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectRequestPerRequestNumber(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>)selectOne("sample.selectRequestPerRequestNumber", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectRequestPerRequestPRGNumber(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("sample.selectRequestPerRequestPRGNumber", map);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -196,12 +206,39 @@ public class SampleDAO extends AbstractDAO{
 		return (List<Map<String, Object>>)selectList("sample.selectTeamList", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectNoticeList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("sample.selectNoticeList", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectNoticeDetail(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("sample.selectNoticeDetail", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getNotice(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("sample.getNotice", map);
+	}
+	
 	public void deleteTeam(Map<String, Object> map) throws Exception{
 		delete("sample.deleteTeam", map);
 	}
 	
+	public void deleteNotice(Map<String, Object> map) throws Exception{
+		delete("sample.deleteNotice", map);
+	}
+	
 	public void insertTeam(Map<String, Object> map) throws Exception{
 		insert("sample.insertTeam", map);
+	}
+	
+	public void insertNotice(Map<String, Object> map) throws Exception{
+		insert("sample.insertNotice", map);
+	}
+	
+	public void updateNotice(Map<String, Object> map) throws Exception{
+		insert("sample.updateNotice", map);
 	}
 	
 	public void insertBudgetInternal(Map<String, Object> map) throws Exception{

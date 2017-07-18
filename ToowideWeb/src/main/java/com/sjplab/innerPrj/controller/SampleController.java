@@ -637,6 +637,26 @@ public class SampleController {
 	    	return mv;
 	  }
 	  
+	  @RequestMapping(value="/insertNotice.do")
+	    public ModelAndView insertNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.insertNotice(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
+	  
+	  @RequestMapping(value="/updateNotice.do")
+	    public ModelAndView updateNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.updateNotice(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
+	  
 	  @RequestMapping(value="/insertTeam.do")
 	    public ModelAndView insertTeam(CommandMap commandMap, HttpServletRequest request) throws Exception{
 	    	ModelAndView mv = new ModelAndView("jsonView");
@@ -666,7 +686,47 @@ public class SampleController {
 	    	
 	    	return mv;
 	    }
+	  
+	  @RequestMapping(value="/selectNoticeList.do")
+	    public ModelAndView selectNoticeList(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.selectNoticeList(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
+	  
+	  @RequestMapping(value="/selectNoticeDetail.do")
+	    public ModelAndView selectNoticeDetail(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.selectNoticeDetail(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
+	  
+	  @RequestMapping(value="/getNotice.do")
+	    public ModelAndView getNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.getNotice(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
 		
+	  	@RequestMapping(value="/deleteNotice.do")
+	    public ModelAndView deleteNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	    	ModelAndView mv = new ModelAndView("jsonView");
+	    	
+	    	Map<String,Object> map = sampleService.deleteNotice(commandMap.getMap(), request);
+	    	mv.addObject("map", map);
+	    	
+	    	return mv;
+	    }
+	  
 		@RequestMapping(value="/deleteTeam.do")
 	    public ModelAndView deleteTeam(CommandMap commandMap, HttpServletRequest request) throws Exception{
 	    	ModelAndView mv = new ModelAndView("jsonView");
@@ -681,6 +741,14 @@ public class SampleController {
 		  @RequestMapping(value = "/listTeam.do")
 		  public ModelAndView listTeam(CommandMap commandMap) throws Exception{
 		    	ModelAndView mv = new ModelAndView("/views/list_team");
+		    	
+		    	return mv;
+		  }
+		  
+		// listNotice
+		  @RequestMapping(value = "/listNotice.do")
+		  public ModelAndView listNotice(CommandMap commandMap) throws Exception{
+		    	ModelAndView mv = new ModelAndView("/views/list_notice");
 		    	
 		    	return mv;
 		  }
